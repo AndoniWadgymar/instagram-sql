@@ -16,3 +16,14 @@ SELECT username, COUNT(*)
 FROM users
 JOIN likes ON likes.user_id = users.id
 GROUP BY username;
+
+-- Show the username of users who were tagged in a caption or photo before
+-- January 7, 2010
+SELECT username, tags.created_at
+FROM users
+JOIN (
+	SELECT user_id, created_at FROM caption_tags
+	UNION ALL
+	SELECT user_id, created_at FROM photo_tags
+) AS tags ON tags.user_id = users.id
+WHERE tags.created_at < '2010-01-07';
