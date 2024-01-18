@@ -1,0 +1,1 @@
+TRUNCATE TABLE cd.bookings CASCADE
